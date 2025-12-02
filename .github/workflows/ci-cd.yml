@@ -29,10 +29,18 @@ jobs:
         docker tag aws-devops-ecs-app:latest ${{ secrets.ECR_REPO_URL }}:latest
         docker push ${{ secrets.ECR_REPO_URL }}:latest
 
-    - name: Deploy to ECS
-      uses: aws-actions/amazon-ecs-deploy@v1
+    - name: Render new ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        cluster: aws-devops-ecs-cluster
-        service: aws-devops-ecs-service
+        task-definition: terraform/ecs-task-def.json
+        container-name: aws-devops-ecs-container
         image: ${{ secrets.ECR_REPO_URL }}:latest
-        force-new-deployment: true
+
+    - name: Deploy updated ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: aws-devops-ecs-service
+        cluster: aws-devops-ecs-cluster
+        wait-for-service-stability: true
