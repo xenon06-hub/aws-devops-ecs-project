@@ -26,11 +26,18 @@ jobs:
       - name: Build Docker image
         run: docker build -t aws-devops-ecs-app ./app
 
+      - name: Debug Print ECR URL
+        run: echo "ECR URL = ${{ secrets.ECR_REPO_URL }}"
+
       - name: Tag Docker image
-        run: docker tag aws-devops-ecs-app:latest ${{ secrets.ECR_REPO_URL }}:latest
+        run: |
+          echo "Tagging image with ECR URL..."
+          docker tag aws-devops-ecs-app:latest ${{ secrets.ECR_REPO_URL }}:latest
 
       - name: Push Docker image to ECR
-        run: docker push ${{ secrets.ECR_REPO_URL }}:latest
+        run: |
+          echo "Pushing image to ECR..."
+          docker push ${{ secrets.ECR_REPO_URL }}:latest
 
       - name: Render ECS task definition
         id: taskdef
