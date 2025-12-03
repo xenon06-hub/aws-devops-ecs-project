@@ -54,4 +54,3 @@ jobs:
           service: aws-devops-ecs-service
           cluster: aws-devops-ecs-cluster
           wait-for-service-stability: true
-
