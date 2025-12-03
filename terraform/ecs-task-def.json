@@ -6,7 +6,7 @@
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "aws-devops-ecs-container",
+      "name": "aws-devops-ecs-app",
       "image": "DUMMY",
       "essential": true,
       "portMappings": [
