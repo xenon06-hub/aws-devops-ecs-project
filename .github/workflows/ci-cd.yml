@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -53,4 +54,5 @@ jobs:
           task-definition: ${{ steps.taskdef.outputs.task-definition }}
           service: aws-devops-ecs-service
           cluster: aws-devops-ecs-cluster
+          container-name: aws-devops-ecs-app
           wait-for-service-stability: true
