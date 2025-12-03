@@ -41,9 +41,9 @@ jobs:
           image: ${{ secrets.ECR_REPO_URL }}:latest
 
       - name: Deploy to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          cluster: aws-devops-ecs-cluster
-          service: aws-devops-ecs-service
           task-definition: ${{ steps.taskdef.outputs.task-definition }}
+          service: aws-devops-ecs-service
+          cluster: aws-devops-ecs-cluster
           wait-for-service-stability: true
