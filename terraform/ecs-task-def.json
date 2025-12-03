@@ -4,6 +4,10 @@
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
   "memory": "512",
+
+  "executionRoleArn": "arn:aws:iam::374331245951:role/aws-devops-ecs-execution-role",
+  "taskRoleArn": "arn:aws:iam::374331245951:role/aws-devops-ecs-execution-role",
+
   "containerDefinitions": [
     {
       "name": "aws-devops-ecs-app",
